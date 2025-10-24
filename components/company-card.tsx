@@ -26,33 +26,47 @@ export function CompanyCard({ company }: CompanyCardProps) {
   const logoUrl = `https://logo.clearbit.com/${company.domain}`
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${company.domain}&sz=128`
 
+  const providerBadgeColors = {
+    AWS: "#f97316",
+    Azure: "#06b6d4",
+    GCP: "#3b82f6",
+    Oracle: "#ef4444",
+    Alibaba: "#eab308",
+    Other: "#9ca3af",
+  }
+
   return (
-    <Card className="p-4 hover:shadow-lg transition-shadow">
-      <div className="flex items-start gap-3">
-        <div className="relative w-12 h-12 flex-shrink-0 bg-muted rounded-lg overflow-hidden flex items-center justify-center">
-          <img
-            src={logoUrl || "/placeholder.svg"}
-            alt={`${company.name} logo`}
-            className="w-full h-full object-contain"
-            onError={(e) => {
-              // Fallback to favicon if logo fails
-              e.currentTarget.src = faviconUrl
-            }}
-          />
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm truncate">{company.name}</h3>
-          <p className="text-xs text-muted-foreground">{company.symbol}</p>
-        </div>
-      </div>
-      <div className="mt-3 flex items-center gap-2">
-        <div
-          className={`w-2 h-2 rounded-full ${
-            PROVIDER_COLORS[company.provider as keyof typeof PROVIDER_COLORS] || PROVIDER_COLORS.Other
-          }`}
+    <div 
+      className="group relative bg-white rounded-lg p-2 hover:shadow-md transition-all cursor-pointer border-2"
+      style={{ 
+        borderColor: providerBadgeColors[company.provider as keyof typeof providerBadgeColors] || providerBadgeColors.Other 
+      }}
+      title={`${company.name} - ${company.provider}`}
+    >
+      {/* Logo Only */}
+      <div className="relative w-full aspect-square bg-gray-50 rounded overflow-hidden flex items-center justify-center">
+        <img
+          src={logoUrl}
+          alt={`${company.name} logo`}
+          className="w-full h-full object-contain p-1.5"
+          onError={(e) => {
+            const target = e.currentTarget
+            if (target.src.includes('clearbit')) {
+              target.src = faviconUrl
+            } else if (target.src.includes('google.com')) {
+              target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(company.name)}&background=random&size=128`
+            }
+          }}
         />
-        <span className="text-xs font-medium">{company.provider}</span>
       </div>
-    </Card>
+      
+      {/* Provider Dot - Bottom Right */}
+      <div 
+        className="absolute bottom-1 right-1 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+        style={{ 
+          backgroundColor: providerBadgeColors[company.provider as keyof typeof providerBadgeColors] || providerBadgeColors.Other 
+        }}
+      />
+    </div>
   )
 }

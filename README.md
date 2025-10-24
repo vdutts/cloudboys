@@ -1,30 +1,48 @@
-# Cloud dependency visualization
+# ☁️ Who Controls The Internet?
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+> **When AWS goes down, Netflix, Reddit, and Slack go with it.**
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/misty-emaners-projects/v0-cloud-dependency-visualization)
+An interactive data visualization showing how 80+ major companies depend on just 3 cloud providers. Built in response to the AWS US-EAST-1 outage.
+
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/xmpzffkC2sM)
 
-## Overview
+## 🎯 The Insight
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+**81% of major companies** run on AWS, Azure, or GCP. When one goes down, a massive chunk of the internet breaks.
 
-## Deployment
+## ✨ Features
 
-Your project is live at:
+- **Interactive Pie Chart** - Visualize cloud provider market share
+- **Live Company Grid** - See 80+ companies organized by their cloud provider
+- **Hover to Filter** - Hover over pie chart slices to see which companies use each provider
+- **Auto-Detection** - Add any company URL and automatically detect their cloud provider via HTTP header analysis
+- **Real Logos** - Actual company logos with color-coded provider indicators
 
-**[https://vercel.com/misty-emaners-projects/v0-cloud-dependency-visualization](https://vercel.com/misty-emaners-projects/v0-cloud-dependency-visualization)**
+## 🛠️ Tech Stack
 
-## Build your app
+- **Built with** [v0 by Vercel](https://v0.app)
+- **Framework** Next.js 15 + React 19
+- **Charts** Recharts for data visualization
+- **Styling** Tailwind CSS
+- **Detection** Edge Runtime API analyzing HTTP headers
 
-Continue building your app on:
+## 🚀 How Detection Works
 
-**[https://v0.app/chat/projects/xmpzffkC2sM](https://v0.app/chat/projects/xmpzffkC2sM)**
+The app analyzes HTTP response headers to identify cloud providers:
+- **AWS**: CloudFront headers (`x-amz-cf-id`, `x-amz-request-id`)
+- **Azure**: Microsoft headers (`x-azure-ref`, `x-ms-*`)
+- **GCP**: Google headers (`x-goog-*`, `gws` server signatures)
+- **Oracle**: Oracle Cloud headers (`x-oracle-dms-*`)
+- **Alibaba**: Alibaba Cloud headers (`x-oss-*`)
 
-## How It Works
+## 🌐 Live Demo
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+**[View Live →](https://cloudboys.vercel.app)**
+
+## 📊 Data
+
+Curated list of 80+ S&P 500 and major tech companies with their verified cloud providers. Data based on public information and automated detection.
+
+---
+
+Built by [@vdutts7](https://x.com/vdutts7) • [GitHub](https://github.com/vdutts7)
